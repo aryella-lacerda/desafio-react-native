@@ -1,7 +1,9 @@
 // @flow
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, ImageBackground, Image, TouchableOpacity, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+
+import MomentConfig from '../../../Config/MomentConfig'
 
 import ToDo from '../Components/ToDo'
 import TogglableText from '../Components/TogglableText'
@@ -13,6 +15,8 @@ import ToDoUISelections from '../Selectors/Ui'
 import styles from './ToDoScreen.style'
 import { Images } from '../../../Themes'
 
+import { Filters } from '../Constants'
+
 import type { StackNavigationProp } from '@react-navigation/stack'
 
 import moment from 'moment'
@@ -21,10 +25,11 @@ type Props = {
   navigation: StackNavigationProp
 }
 
+MomentConfig.setLanguage()
+
 const ToDoScreen = ({ navigation }: Props) => {
   // Redux Actions
   const dispatch = useDispatch()
-  const getToDos = useCallback(() => dispatch(ToDosUIActions.request()))
 
   // State
   const [selectedFilterIndex, setFilterIndex] = useState(0)
@@ -36,21 +41,14 @@ const ToDoScreen = ({ navigation }: Props) => {
 
   // Lifecycle Methods
   useEffect(() => {
-    getToDos()
-  }, [])
-
-  // Consts
-  const filterList = ['All', 'Today', 'This week', 'This month']
+    dispatch(ToDosUIActions.request())
+  }, [dispatch])
 
   return (
     <ImageBackground source={Images.appBackground} style={styles.background}>
       <HeaderContainer onPressSearch={() => {}} />
       <View style={styles.tasksContainer}>
-        <FilterListContainer
-          filterList={filterList}
-          selectedFilter={selectedFilterIndex}
-          onPressFilter={setFilterIndex}
-        />
+        <FilterListContainer filterList={Filters} selectedFilter={selectedFilterIndex} onPressFilter={setFilterIndex} />
         {!fetching && !error && !!sortedToDos && (
           <FlatList
             style={{ marginLeft: 12 }}
@@ -92,7 +90,7 @@ const FilterListContainer = ({ filterList, selectedFilter, onPressFilter }) => (
 const HeaderContainer = ({ onPressSearch }) => (
   <View style={styles.headerContainer}>
     <View>
-      <Text style={styles.displayDateName}>Today</Text>
+      <Text style={styles.displayDateName}>Hoje</Text>
       <Text style={styles.date}>{moment().format('dddd, DD MMMM')}</Text>
     </View>
     <TouchableOpacity activeOpacity={0.7} onPress={onPressSearch} style={styles.searchContainer}>
@@ -100,4 +98,5 @@ const HeaderContainer = ({ onPressSearch }) => (
     </TouchableOpacity>
   </View>
 )
+
 export default ToDoScreen
