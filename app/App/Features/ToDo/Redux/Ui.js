@@ -13,7 +13,7 @@ const INITIAL_STATE: State = {
 }
 
 const toDoUiSlice = createSlice({
-  name: 'userUI',
+  name: 'ui',
   initialState: INITIAL_STATE,
   reducers: {
     request: (state: State) => ({

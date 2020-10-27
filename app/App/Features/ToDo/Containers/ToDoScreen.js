@@ -8,7 +8,9 @@ import MomentConfig from '../../../Config/MomentConfig'
 import ToDo from '../Components/ToDo'
 import TogglableText from '../Components/TogglableText'
 
-import { actions as ToDosUIActions } from '../Redux/Ui'
+import { actions as UIActions } from '../Redux/Ui'
+import { actions as EntityActions } from '../Redux/Entity'
+
 import ToDoEntitySelectors from '../Selectors/Entity'
 import ToDoUISelections from '../Selectors/Ui'
 
@@ -41,7 +43,7 @@ const ToDoScreen = ({ navigation }: Props) => {
 
   // Lifecycle Methods
   useEffect(() => {
-    dispatch(ToDosUIActions.request())
+    dispatch(UIActions.request())
   }, [dispatch])
 
   return (
@@ -55,7 +57,14 @@ const ToDoScreen = ({ navigation }: Props) => {
             data={sortedToDos}
             keyExtractor={(item, index) => `${item.id}-${index}-${item.title}`}
             renderItem={({ item }) => (
-              <ToDo onPressText={() => {}} toggleToDo={() => {}} text={item.title} toggled={item.isDone} />
+              <ToDo
+                onPressText={() => {}}
+                toggleToDo={() => {
+                  dispatch(EntityActions.toggleToDo({ id: item.id }))
+                }}
+                text={item.title}
+                toggled={item.isDone}
+              />
             )}
           />
         )}
