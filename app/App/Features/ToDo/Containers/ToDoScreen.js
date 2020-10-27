@@ -33,11 +33,10 @@ const ToDoScreen = ({ navigation }: Props) => {
   // Redux Actions
   const dispatch = useDispatch()
 
-  // State
-  const [selectedFilterIndex, setFilterIndex] = useState(0)
-
   // Selectors
   const sortedToDos = useSelector(ToDoEntitySelectors.sortedToDos)
+
+  const selectedFilterIndex = useSelector(ToDoUISelections.selectedFilterIndex)
   const fetching = useSelector(ToDoUISelections.fetching)
   const error = useSelector(ToDoUISelections.error)
 
@@ -46,11 +45,19 @@ const ToDoScreen = ({ navigation }: Props) => {
     dispatch(UIActions.request())
   }, [dispatch])
 
+  useEffect(() => {})
+
   return (
     <ImageBackground source={Images.appBackground} style={styles.background}>
       <HeaderContainer onPressSearch={() => {}} />
       <View style={styles.tasksContainer}>
-        <FilterListContainer filterList={Filters} selectedFilter={selectedFilterIndex} onPressFilter={setFilterIndex} />
+        <FilterListContainer
+          filterList={Filters}
+          selectedFilter={selectedFilterIndex}
+          onPressFilter={index => {
+            dispatch(UIActions.setSelectedFilterIndex(index))
+          }}
+        />
         {!fetching && !error && !!sortedToDos && (
           <FlatList
             style={{ marginLeft: 12 }}

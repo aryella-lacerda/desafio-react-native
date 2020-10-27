@@ -4,12 +4,20 @@ import type { Error } from '../../../Entities/Error'
 
 export type State = {
   fetching: boolean,
-  error: ?string
+  error: ?string,
+  selectedFilterIndex: number
 }
 
 const INITIAL_STATE: State = {
   fetching: false,
   error: null
+}
+
+type SetSelectedFilterIndexAction = {
+  type: string,
+  payload: {
+    index: number
+  }
 }
 
 const toDoUiSlice = createSlice({
@@ -30,7 +38,10 @@ const toDoUiSlice = createSlice({
       ...state,
       fetching: false,
       error: null
-    })
+    }),
+    setSelectedFilterIndex: (state: State, action: SetSelectedFilterIndexAction) => {
+      state.selectedFilterIndex = action.payload.index
+    }
   }
 })
 
