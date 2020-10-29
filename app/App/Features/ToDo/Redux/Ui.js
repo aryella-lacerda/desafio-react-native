@@ -10,7 +10,8 @@ export type State = {
 
 const INITIAL_STATE: State = {
   fetching: false,
-  error: null
+  error: null,
+  selectedFilterIndex: 0
 }
 
 type SetSelectedFilterIndexAction = {

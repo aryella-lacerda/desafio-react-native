@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, ImageBackground, Image, TouchableOpacity, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -19,12 +19,10 @@ import { Images } from '../../../Themes'
 
 import { Filters } from '../Constants'
 
-import type { StackNavigationProp } from '@react-navigation/stack'
-
 import moment from 'moment'
 
 type Props = {
-  navigation: StackNavigationProp
+  navigation: any
 }
 
 MomentConfig.setLanguage()
@@ -34,7 +32,8 @@ const ToDoScreen = ({ navigation }: Props) => {
   const dispatch = useDispatch()
 
   // Selectors
-  const sortedToDos = useSelector(ToDoEntitySelectors.sortedToDos)
+  const filteredToDos = useSelector(ToDoEntitySelectors.filteredToDos)
+  const isEmpty = useSelector(ToDoEntitySelectors.isEmpty)
 
   const selectedFilterIndex = useSelector(ToDoUISelections.selectedFilterIndex)
   const fetching = useSelector(ToDoUISelections.fetching)
@@ -45,8 +44,6 @@ const ToDoScreen = ({ navigation }: Props) => {
     dispatch(UIActions.request())
   }, [dispatch])
 
-  useEffect(() => {})
-
   return (
     <ImageBackground source={Images.appBackground} style={styles.background}>
       <HeaderContainer onPressSearch={() => {}} />
@@ -55,13 +52,13 @@ const ToDoScreen = ({ navigation }: Props) => {
           filterList={Filters}
           selectedFilter={selectedFilterIndex}
           onPressFilter={index => {
-            dispatch(UIActions.setSelectedFilterIndex(index))
+            dispatch(UIActions.setSelectedFilterIndex({ index }))
           }}
         />
-        {!fetching && !error && !!sortedToDos && (
+        {!isEmpty && !fetching && !error && !!filteredToDos && (
           <FlatList
             style={{ marginLeft: 12 }}
-            data={sortedToDos}
+            data={filteredToDos}
             keyExtractor={(item, index) => `${item.id}-${index}-${item.title}`}
             renderItem={({ item }) => (
               <ToDo

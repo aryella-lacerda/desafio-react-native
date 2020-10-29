@@ -95,8 +95,8 @@ Vale lembrar que **não é obrigatório finalizar todas as tarefas listadas** aq
 	3. Esta semana
 	4. Atrasado
 3. Finalizar Tarefa
-	1. [Marcar tarefa como finalizada](https://www.figma.com/proto/F95kJDtNqV2b2ioeS3YqTp/Pop-To-Do_Android?scaling=min-zoom&node-id=1%3A228)
-	2. [Desmarcar tarefa como finalizada](https://www.figma.com/proto/F95kJDtNqV2b2ioeS3YqTp/Pop-To-Do_Android?scaling=min-zoom&node-id=20%3A0)
+	1. [Marcar tarefa como finalizada](https://www.figma.com/proto/F95kJDtNqV2b2ioeS3YqTp/Pop-To-Do_Android?scaling=min-zoom&node-id=1%3A228) ✅ 
+	2. [Desmarcar tarefa como finalizada](https://www.figma.com/proto/F95kJDtNqV2b2ioeS3YqTp/Pop-To-Do_Android?scaling=min-zoom&node-id=20%3A0) ✅ 
 4. Nova Tarefa
 	1. [Título](https://invis.io/52U0WK0TNF8#/384998453)
 	2. [Calendário](https://invis.io/52U0WK0TNF8#/384998455)

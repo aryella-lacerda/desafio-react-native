@@ -1,3 +1,11 @@
 // @flow
+import { values } from 'lodash'
 
-export const Filters = ['Todos', 'Hoje', 'Esta semana', 'Atrasados']
+export const FILTERS = {
+  ALL: 'Todos',
+  TODAY: 'Hoje',
+  THIS_WEEK: 'Esta semana',
+  LATE: 'Atrasados'
+}
+
+export const Filters = values(FILTERS)
